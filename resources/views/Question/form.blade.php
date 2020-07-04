@@ -26,16 +26,30 @@
                 <!-- textarea -->
                 <div class="form-group">
                     <label for="isi">Isi Pertanyaan</label>
-                    <textarea id="isi" name="isi" maxlength="60000" class="form-control @error('isi') is-invalid @enderror" rows="10" type="text" placeholder="isi pertanyaan ...">{{ old('isi') }}</textarea>
+                    <textarea id="isi" name="isi" maxlength="6000" class="form-control @error('isi') is-invalid @enderror" rows="10" type="text" placeholder="isi pertanyaan ...">{{ old('isi') }}</textarea>
                     @error('isi')<div class="invalid-feedback"> {{ $message }} </div>@enderror
+                    <span class="pull-right label label-default" id="count_message"></span>
                 </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <a href="/pertanyaan" role="button" class="btn btn-danger">Cancel</a>
+            <button type="submit" class="btn btn-primary">Kirim</button>
+            <a href="/pertanyaan" role="button" class="btn btn-danger">Batal</a>
             </form>
         </div>
         <!-- /.card-body -->
         </div>
 @endsection
+@push('scripts')
+<script>
+        var text_max = 6000;
+        $('#count_message').html('0 / ' + text_max );
+
+        $('#isi').keyup(function() {
+        var text_length = $('#isi').val().length;
+        var text_remaining = text_max - text_length;
+        
+        $('#count_message').html(text_length + ' / ' + text_max);
+        }); 
+</script>
+@endpush
 
